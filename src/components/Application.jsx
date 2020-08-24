@@ -37,6 +37,7 @@ class Application extends React.Component {
         // 而正确的做法是异步请求结束直接dispatch的redux的state，connec封装的HOC会订阅store的变化
         // 自动为我们触发组件更新
         // 这样整个思路都缕清晰了，突然觉着redux并没有那么难懂
+        // https://stackoverflow.com/a/40386189/7529562
         (async function () {
             const result = await (await fetch('https://github-trending-api.now.sh/repositories?since=daily')).json()
             this.props.setTrendings(result)
