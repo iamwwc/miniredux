@@ -1,10 +1,11 @@
 import React from 'react'
 import { connect } from "react-redux";
 import { SET_MESSAGE, SET_TRENDINGS } from '../constant'
-
+import { ListContext } from "../context/list";
 // https://github-trending-api.now.sh/repositories?since=daily
 class Application extends React.Component {
     render() {
+        debugger
         return (
             <div id="app">
                 <div id="greeting">
@@ -38,12 +39,16 @@ class Application extends React.Component {
         // 自动为我们触发组件更新
         // 这样整个思路都缕清晰了，突然觉着redux并没有那么难懂
         // https://stackoverflow.com/a/40386189/7529562
+        // 有时组件渲染依赖于state中变量x，但异步请求数据还没返回导致组件渲染时x可能为undefined
+        // 这时组件渲染就会报错，解决办法判断x若为undefined就给个默认值
         (async function () {
             const result = await (await fetch('https://github-trending-api.now.sh/repositories?since=daily')).json()
             this.props.setTrendings(result)
         }.bind(this)())
     }
 }
+
+Application.contextType = ListContext
 
 function mapStateToProps(state) {
     return {

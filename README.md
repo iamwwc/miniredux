@@ -6,6 +6,9 @@
 
 同时也揭示了redux如何配合异步请求来更新数据、触发组件的重新渲染。
 
+另外：
+
+1. 演示如何使用React.Provider和Consumer
 ## 问题发现
 
 Application.tsx展示了如何在组件中预取数据dispatch到store中，但异步代码耦合在组件代码中无法被其他组件逻辑复用

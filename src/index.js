@@ -1,15 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Application from './components/Application';
+import Application from './hoc/Application';
 import { Provider } from "react-redux";
 import { store } from "./store";
 import * as serviceWorker from './serviceWorker';
-
+import { ListContext } from "./context/list";
+const inject = {
+    name: 'wuweichao.x',
+    where: 'shandong'
+}
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
-            <Application />
+            <ListContext.Provider value={inject}>
+                <Application />
+            </ListContext.Provider>
         </Provider>
     </React.StrictMode>,
     document.getElementById('root')
