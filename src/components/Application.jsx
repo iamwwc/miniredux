@@ -42,6 +42,10 @@ class Application extends React.Component {
         // 有时组件渲染依赖于state中变量x，但异步请求数据还没返回导致组件渲染时x可能为undefined
         // 这时组件渲染就会报错，解决办法判断x若为undefined就给个默认值
         (async function () {
+            // 不同的组件往往依赖部分相同的数据，需要将异步函数拿出来调用，之前我是用redux-thunk，直接将action写成异步。
+            // 其实应该将api调用放在单独的文件，本身不依赖任何redux的东西。
+            // 需要数据就去取，取完之后同步调用dispatch到store中，就不需要将action用thunk搞成异步
+            // 而且thunk搞成的异步action特别难用
             const result = await (await fetch('https://github-trending-api.now.sh/repositories?since=daily')).json()
             this.props.setTrendings(result)
         }.bind(this)())
